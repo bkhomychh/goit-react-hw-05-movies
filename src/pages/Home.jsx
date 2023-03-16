@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { getTrendingMovies } from 'services/api';
 
-import TrendingMovies from 'components/TrendingMovies';
+import MovieList from 'components/MovieList';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
@@ -11,13 +11,12 @@ const Home = () => {
     getTrendingMovies()
       .then(movies => setMovies(movies))
       .catch(error => console.log(error.message));
-    console.log('http');
   }, []);
 
   return (
     <>
       <h1>Trending today</h1>
-      {movies.length > 0 && <TrendingMovies movies={movies} />}
+      {movies.length > 0 && <MovieList movies={movies} />}
     </>
   );
 };

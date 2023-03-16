@@ -1,13 +1,8 @@
 import axios from 'axios';
 
-const API_KEY = '9e68854d69dbd1100bcb425bc2f51530';
-const RESOURCE = {
-  trending: '/trending/movie/week',
-  search: '/search/movie',
-  movieDetails: '/movie/',
-};
+import { BASE_URL, API_KEY, RESOURCE } from 'constants/api';
 
-axios.defaults.baseURL = 'https://api.themoviedb.org/3';
+axios.defaults.baseURL = BASE_URL;
 axios.defaults.params = {
   api_key: API_KEY,
 };
@@ -23,7 +18,7 @@ export const getMoviesBySearchQuery = searchQuery => {
     },
   };
 
-  return axios.get(RESOURCE.search, options).then(res => res.results);
+  return axios.get(RESOURCE.search, options).then(res => res.data.results);
 };
 
 export const getMovieDetails = id => {
@@ -31,9 +26,13 @@ export const getMovieDetails = id => {
 };
 
 export const getMovieCredits = id => {
-  return axios.get(RESOURCE.movieCredits + id + '/credits');
+  return axios
+    .get(RESOURCE.movieDetails + id + '/credits')
+    .then(res => res.data.cast);
 };
 
 export const getMovieReviews = id => {
-  return axios.get(RESOURCE.movieDetails + id + '/reviews');
+  return axios
+    .get(RESOURCE.movieDetails + id + '/reviews')
+    .then(res => res.data.results);
 };

@@ -31,7 +31,8 @@ export const StyledLink = styled(NavLink)`
 
   transition: all 250ms ease-in-out;
 
-  &:hover {
+  &:hover,
+  &.active {
     color: crimson;
   }
 `;
