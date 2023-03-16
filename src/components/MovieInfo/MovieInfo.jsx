@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { Suspense } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 
 import { IMAGE_BASE_URL } from 'constants/api';
@@ -10,22 +11,19 @@ import {
 } from './MovieInfo.styled';
 
 const MovieInfo = ({ movie, children }) => {
-  const {
-    title,
-    overview,
-    genres = [],
-    poster_path: imgUrl,
-    vote_average: score,
-  } = movie;
+  const { title, overview, genres = [], poster_path, vote_average } = movie;
   const location = useLocation();
+
+  const imgUrl = IMAGE_BASE_URL + poster_path;
+  const score = Math.floor(vote_average * 10);
 
   return (
     <>
       <MainInfo>
-        <StyledImg src={IMAGE_BASE_URL + imgUrl} alt={title} />
+        <StyledImg src={imgUrl} alt={title} />
         <Wrapper>
           <h1>{title}</h1>
-          <p>User score: {Math.floor(score * 10)}%</p>
+          <p>User score: {score}%</p>
           <h2>Overview</h2>
           <p>{overview}</p>
           <h2>Genres</h2>
@@ -47,8 +45,7 @@ const MovieInfo = ({ movie, children }) => {
           </li>
         </ul>
       </AdditionalInfo>
-
-      {children}
+      <Suspense fallback={<p>Loading ...</p>}>{children}</Suspense>
     </>
   );
 };

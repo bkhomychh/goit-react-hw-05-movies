@@ -1,12 +1,13 @@
+import { lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
-
 import SharedLayout from './SharedLayout';
-import Home from 'pages/Home';
-import Movies from 'pages/Movies';
-import MovieDetails from 'pages/MovieDetails';
-import ErrorPage from 'pages/ErrorPage';
-import Cast from './Cast';
-import Reviews from './Reviews';
+
+const Home = lazy(() => import('pages/Home'));
+const Movies = lazy(() => import('pages/Movies'));
+const MovieDetails = lazy(() => import('pages/MovieDetails'));
+const ErrorPage = lazy(() => import('pages/ErrorPage'));
+const Cast = lazy(() => import('./Cast'));
+const Reviews = lazy(() => import('./Reviews'));
 
 export const App = () => {
   return (
