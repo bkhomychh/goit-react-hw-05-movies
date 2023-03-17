@@ -16,9 +16,7 @@ const Reviews = () => {
 
   return (
     <Wrapper>
-      {reviews.length < 1 ? (
-        <p>We don't have any reviews for this movie :(</p>
-      ) : (
+      {reviews.length > 0 ? (
         <StyledReviews>
           {reviews.map(({ id, author, content }) => (
             <Review key={id}>
@@ -27,6 +25,8 @@ const Reviews = () => {
             </Review>
           ))}
         </StyledReviews>
+      ) : (
+        <b>We don't have any reviews for this movie :(</b>
       )}
     </Wrapper>
   );

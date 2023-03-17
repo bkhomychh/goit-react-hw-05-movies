@@ -13,6 +13,7 @@ import {
 const MovieInfo = ({ movie, children }) => {
   const { title, overview, genres = [], poster_path, vote_average } = movie;
   const location = useLocation();
+  const prevLocation = location.state?.from;
 
   const imgUrl = IMAGE_BASE_URL + poster_path;
   const score = Math.floor(vote_average * 10);
@@ -34,18 +35,19 @@ const MovieInfo = ({ movie, children }) => {
         <h2>Additional information</h2>
         <ul>
           <li>
-            <NavLink to="cast" state={{ from: location }}>
+            <NavLink to="cast" state={{ from: prevLocation }}>
               Cast
             </NavLink>
           </li>
           <li>
-            <NavLink to="reviews" state={{ from: location }}>
+            <NavLink to="reviews" state={{ from: prevLocation }}>
               Reviews
             </NavLink>
           </li>
         </ul>
       </AdditionalInfo>
-      <Suspense fallback={<p>Loading ...</p>}>{children}</Suspense>
+
+      <Suspense fallback={<p>Loading...</p>}>{children}</Suspense>
     </>
   );
 };
