@@ -7,7 +7,7 @@ import MovieInfo from 'components/MovieInfo';
 import BackLink from 'components/BackLink';
 
 const MovieDetails = () => {
-  const [movie, setMovie] = useState({});
+  const [movie, setMovie] = useState(null);
   const { movieId } = useParams();
   const location = useLocation();
   const backLinkHref = location.state?.from ?? '/';
@@ -21,9 +21,12 @@ const MovieDetails = () => {
   return (
     <>
       <BackLink to={backLinkHref}>Go back</BackLink>
-      <MovieInfo movie={movie}>
-        <Outlet />
-      </MovieInfo>
+
+      {movie && (
+        <MovieInfo movie={movie}>
+          <Outlet />
+        </MovieInfo>
+      )}
     </>
   );
 };
